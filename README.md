@@ -1,10 +1,18 @@
 
-# Project for managing food in your pantry / fridge / freezer etc.
+# Project for managing meds expiration
 
 Here is the initial demo
 
-![img](src/assets/dashboard.png "dashboard")
+TODO
 
+Features
+
+- Create a store of your meds (with expiration date)
+- Login to see dashboard
+- Once a med is reaching expiration date send an email
+
+
+# React Create App infos
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
