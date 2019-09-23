@@ -1,9 +1,12 @@
 import { combineReducers, createStore } from 'redux'
 
-import foods from './reducers'
+import medicines from './medicines'
 
 const appReducers = combineReducers({
-	foods,
+	medicines,
 })
-
-export const store = createStore(appReducers);
+const store = createStore(
+	appReducers,
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
+export default store;

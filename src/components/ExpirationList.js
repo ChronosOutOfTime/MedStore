@@ -15,9 +15,18 @@ const useStyles = makeStyles(theme => ({
 	root: {
 		flexGrow: 1,
 	},
+	avatar: {
+		width: 52,
+	},
+	list: {
+		width: 250,
+	},
+	fullList: {
+		width: 'auto',
+	},
 	paper: {
 		alignItems: "center",
-		width: 200,
+		width: 250,
 	},
 	toolbar: {
 		display: 'block',
@@ -27,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 		...theme.mixins.toolbar,
 	},
 	img: {
-		objectFit: "cover",
+		objectFit: "contain",
 		width: 100,
 		height: 100,
 		borderRadius: "50%",
@@ -35,11 +44,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function EarlyExpiration({foods, title}) {
+export default function ExpirationList({
+	medicines,
+	title,
+	expirationType,
+	onChangeVisibilityEditPanel,
+}) {
 	const [spacing] = React.useState(2);
 	const classes = useStyles();
-
-
 
 	return (
 		<Grid container  justify="center" className={classes.root} spacing={2}>
@@ -49,21 +61,28 @@ export default function EarlyExpiration({foods, title}) {
 					<Grid item xs={12}>
 						{title}
 					</Grid>
-					{foods.map(({pictureUrl, dates, name, daysUntilExpiration}, index) => (
+					{medicines.map(({pictureUrl, expiresIn, name}, index) => (
 						<Grid key={index} item>
 							<Paper className={classes.paper} >
-								<Chip
-									avatar={<Avatar>{calculateExpiration({dates, daysUntilExpiration})}</Avatar>}
-									label={name}
-									className={classes.chip}
-									color="default"
-								/>
-								<Tooltip title="Edit" placement="top">
-									<IconButton aria-label="show 4 new mails" color="inherit">
-										<CreateIcon />
-									</IconButton>
-								</Tooltip>
-								<img className={classes.img} src={pictureUrl} alt="yogurt"/>
+								<Grid key={index} item>
+									<Chip
+										avatar={<Avatar className={classes.avatar}>{calculateExpiration({expiresIn, expirationType})}</Avatar>}
+										label={name}
+										className={classes.chip}
+										color="default"
+									/>
+									<Tooltip title="Edit" placement="top">
+										<IconButton aria-label="show 4 new mails" color="inherit" onClick={() => onChangeVisibilityEditPanel(true)}>
+											<CreateIcon />
+										</IconButton>
+									</Tooltip>
+								</Grid>
+								<Grid>
+									<img className={classes.img} src={pictureUrl} alt="yogurt"/>
+								</Grid>
+								<Grid>
+									<p>Expires in : {expiresIn}</p>
+								</Grid>
 							</Paper>
 						</Grid>
 					))}

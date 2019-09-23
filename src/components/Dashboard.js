@@ -2,12 +2,17 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
-import EarlyExpiration from './EarlyExpiration';
+import ExpirationList from './ExpirationList';
 
-const DashBoard = ({foodsEarly, foodsMedium}) => {
+const DashBoard = ({medicines, expirationType, onChangeExpirationType, onChangeVisibilityEditPanel}) => {
 	return (<Grid container  spacing={2}>
-		<EarlyExpiration title="Early Expiration food" foods={foodsEarly}/>
-		<EarlyExpiration title="Medium Expiration food" foods={foodsMedium}/>
+		<ExpirationList
+			title="Medicines"
+			medicines={medicines}
+			expirationType={expirationType}
+			onChangeExpirationType={onChangeExpirationType}
+			onChangeVisibilityEditPanel={onChangeVisibilityEditPanel}
+		/>
 	</Grid>);
 }
 

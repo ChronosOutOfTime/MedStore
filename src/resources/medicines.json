@@ -1,0 +1,23 @@
+[{
+    "brand": "ALFASIGMA",
+    "cost": 27.20,
+    "description": "compresse gastroresitenti",
+    "dose": "500 mg",
+    "expiresIn": "2021-03",
+    "name": "Nicetile 500mg",
+    "pictureUrl": "https://images.zakupka.com/i3/firms/27/60/60368/nicetil-tabletki_0bc3b0f640efcb6_300x300_1.jpg",
+    "quantity": 30,
+    "shop": "",
+    "type": "compresse"
+}, {
+    "brand": "LABOREST",
+    "cost": null,
+    "description": "Integratore alimentare a base di Acido alfa-lipoico",
+    "dose": "1.7 g",
+    "expiresIn": "2022-02",
+    "name": "Tiobec 800",
+    "pictureUrl": "https://www.pharmasi.it/media/catalog/product/cache/1/image/378x378/9df78eab33525d08d6e5fb8d27136e95/9/3/931771289.jpg",
+    "quantity": 20,
+    "shop": "",
+    "type": "compresse"
+}]

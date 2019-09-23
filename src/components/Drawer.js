@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,12 +18,18 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import FastFoodIcon from '@material-ui/icons/Fastfood';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import DashBoard from '../containers/Dashboard';
+import {
+	onChangeExpirationType,
+	onChangeVisibilityEditPanel,
+} from '../actions/medicines';
+import DashboardContainer from '../containers/DashboardContainer';
+import EditPanelContainer from '../containers/EditPanelContainer';
+import { editPanelVisibilitySelector, editingSelector, expirationTypeSelector } from '../selectors/medicines';
 
-const drawerWidth = 240;
+const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
 	grow: {
@@ -69,9 +77,9 @@ const useStyles = makeStyles(theme => ({
 			duration: theme.transitions.duration.leavingScreen,
 		}),
 		overflowX: 'hidden',
-		width: theme.spacing(7) + 1,
+		width: theme.spacing(8) + 40,
 		[theme.breakpoints.up('sm')]: {
-			width: theme.spacing(9) + 1,
+			width: theme.spacing(9) + 20,
 		},
 	},
 	toolbar: {
@@ -93,7 +101,12 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export default function MiniDrawer() {
+const MiniDrawer = ({
+	expirationType,
+	editing = null,
+	isEditing,
+		
+}) => {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
@@ -170,21 +183,73 @@ export default function MiniDrawer() {
 				</div>
 				<Divider />
 				<List>
-					{[{
-						text: 'Food',
-						Icon: FastFoodIcon,
-					}].map(({text, Icon}) => (
-						<ListItem button key={text}>
-							<ListItemIcon>{<Icon />}</ListItemIcon>
-							<ListItemText primary={text} />
+					{[
+						{
+							text: 'Days',
+							type: "days",
+						}, {
+							text: 'Months',
+							type: "months",
+						},
+					].map(({text, type}) => (
+						<ListItem button key={text} selected={type === expirationType}>
+							<ListItemText primary={text} onClick={() => onChangeExpirationType(type)}/>
 						</ListItem>
 					))}
 				</List>
 			</Drawer>
 			<main className={classes.content}>
 				<div className={classes.toolbar} />
-				<DashBoard/>
+				<DashboardContainer/>
 			</main>
+			<Drawer
+				variant="temporary"
+				className={clsx(classes.drawer, {
+					[classes.drawerOpen]: isEditing,
+					[classes.drawerClose]: !isEditing,
+				})}
+				anchor="right"
+				classes={{
+					paper: clsx({
+						[classes.drawerOpen]: isEditing,
+						[classes.drawerClose]: !isEditing,
+					}),
+				}}
+				open={isEditing}
+			>
+				<div className={classes.toolbar}>
+					<IconButton onClick={handleDrawerClose}>
+						{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+					</IconButton>
+				</div>
+				<Divider />
+				<EditPanelContainer/>
+			</Drawer>
 		</div>
 	);
 }
+
+export const medicinesSelectors = createSelector(
+	[expirationTypeSelector, editingSelector, editPanelVisibilitySelector],
+	(
+		expirationType,
+		editing,
+		isEditing
+	) => ({
+		expirationType,
+		editing,
+		isEditing,
+	})
+);
+
+const mapStateToProps = (state) => medicinesSelectors(state);
+  
+const mapDispatchToProps = {
+	onChangeExpirationType,
+	onChangeVisibilityEditPanel,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(MiniDrawer);
