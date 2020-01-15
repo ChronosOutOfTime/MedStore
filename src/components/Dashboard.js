@@ -3,6 +3,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import ExpirationList from './ExpirationList';
+import Table from './Table';
 
 const DashBoard = ({medicines, expirationType, onChangeExpirationType, onChangeVisibilityEditPanel}) => {
 	return (<Grid container  spacing={2}>
@@ -13,6 +14,7 @@ const DashBoard = ({medicines, expirationType, onChangeExpirationType, onChangeV
 			onChangeExpirationType={onChangeExpirationType}
 			onChangeVisibilityEditPanel={onChangeVisibilityEditPanel}
 		/>
+		<Table/>
 	</Grid>);
 }
 

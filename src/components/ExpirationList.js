@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 
 import { Avatar } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
@@ -50,7 +50,7 @@ export default function ExpirationList({
 	expirationType,
 	onChangeVisibilityEditPanel,
 }) {
-	const [spacing] = React.useState(2);
+	const [spacing] = useState(2);
 	const classes = useStyles();
 
 	return (

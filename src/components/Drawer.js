@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useState }  from 'react';
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
 
@@ -27,7 +27,7 @@ import DashboardContainer from '../containers/DashboardContainer';
 import EditPanelContainer from '../containers/EditPanelContainer';
 import { editPanelVisibilitySelector, editingSelector, expirationTypeSelector } from '../selectors/medicines';
 
-const drawerWidth = 290;
+const drawerWidth = 590;
 
 const useStyles = makeStyles(theme => ({
 	grow: {
@@ -80,10 +80,14 @@ const useStyles = makeStyles(theme => ({
 			width: theme.spacing(9) + 20,
 		},
 	},
+	chevronEdit: {
+		right: 0,
+		position: "absolute",
+	},
 	toolbar: {
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'flex-end',
+		justifyContent: 'center',
 		padding: theme.spacing(0, 1),
 		...theme.mixins.toolbar,
 	},
@@ -103,12 +107,13 @@ const MiniDrawer = ({
 	expirationType,
 	editing = null,
 	isEditing,
-		
+	onChangeExpirationType,
+	onChangeVisibilityEditPanel,
 }) => {
 	const classes = useStyles();
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
-	const [setAnchorEl] = React.useState(null);
+	const [open, setOpen] = useState(false);
+	const [setAnchorEl] = useState(null);
 	const menuId = 'primary-search-account-menu';
 	function handleDrawerOpen() {
 		setOpen(true);
@@ -175,7 +180,8 @@ const MiniDrawer = ({
 				open={open}
 			>
 				<div className={classes.toolbar}>
-					<IconButton onClick={handleDrawerClose}>
+					Sort By
+					<IconButton className={classes.chevronEdit} onClick={handleDrawerClose}>
 						{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
 					</IconButton>
 				</div>
@@ -216,8 +222,9 @@ const MiniDrawer = ({
 				open={isEditing}
 			>
 				<div className={classes.toolbar}>
-					<IconButton onClick={handleDrawerClose}>
-						{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+					Edit
+					<IconButton className={classes.chevronEdit} onClick={() => onChangeVisibilityEditPanel(false)}>
+						{theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
 					</IconButton>
 				</div>
 				<Divider />
