@@ -27,7 +27,7 @@ import DashboardContainer from '../containers/DashboardContainer';
 import EditPanelContainer from '../containers/EditPanelContainer';
 import { editPanelVisibilitySelector, editingSelector, expirationTypeSelector } from '../selectors/medicines';
 
-const drawerWidth = 590;
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
 	grow: {
@@ -37,11 +37,8 @@ const useStyles = makeStyles(theme => ({
 		display: 'flex',
 	},
 	appBar: {
-		zIndex: theme.zIndex.drawer + 1,
-		transition: theme.transitions.create(['width', 'margin'], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: drawerWidth,
 	},
 	appBarShift: { 
 		marginLeft: drawerWidth,
@@ -60,7 +57,6 @@ const useStyles = makeStyles(theme => ({
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
-		whiteSpace: 'nowrap',
 	},
 	drawerOpen: {
 		width: drawerWidth,
@@ -105,23 +101,12 @@ const useStyles = makeStyles(theme => ({
 
 const MiniDrawer = ({
 	expirationType,
-	editing = null,
-	isEditing,
 	onChangeExpirationType,
 	onChangeVisibilityEditPanel,
 }) => {
 	const classes = useStyles();
-	const theme = useTheme();
-	const [open, setOpen] = useState(false);
 	const [setAnchorEl] = useState(null);
 	const menuId = 'primary-search-account-menu';
-	function handleDrawerOpen() {
-		setOpen(true);
-	}
-
-	function handleDrawerClose() {
-		setOpen(false);
-	}
 
 	function handleProfileMenuOpen(event) {
 		setAnchorEl(event.currentTarget);
@@ -131,22 +116,10 @@ const MiniDrawer = ({
 			<CssBaseline />
 			<AppBar
 				position="fixed"
-				className={clsx(classes.appBar, {
-					[classes.appBarShift]: open,
-				})}
+				className={classes.appBar}
 			>
 				<Toolbar>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						onClick={handleDrawerOpen}
-						edge="start"
-						className={clsx(classes.menuButton, {
-							[classes.hide]: open,
-						})}
-					>
-						<MenuIcon />
-					</IconButton>
+					
 					<Typography variant="h6" noWrap>
 						Dashboard
 					</Typography>
@@ -166,25 +139,14 @@ const MiniDrawer = ({
 				</Toolbar>
 			</AppBar>
 			<Drawer
+				className={classes.drawer}
 				variant="permanent"
-				className={clsx(classes.drawer, {
-					[classes.drawerOpen]: open,
-					[classes.drawerClose]: !open,
-				})}
 				classes={{
-					paper: clsx({
-						[classes.drawerOpen]: open,
-						[classes.drawerClose]: !open,
-					}),
+					paper: classes.drawerPaper,
 				}}
-				open={open}
+				anchor="left"
 			>
-				<div className={classes.toolbar}>
-					Sort By
-					<IconButton className={classes.chevronEdit} onClick={handleDrawerClose}>
-						{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-					</IconButton>
-				</div>
+				
 				<Divider />
 				<List>
 					{[
@@ -206,30 +168,7 @@ const MiniDrawer = ({
 				<div className={classes.toolbar} />
 				<DashboardContainer/>
 			</main>
-			<Drawer
-				variant="temporary"
-				className={clsx(classes.drawer, {
-					[classes.drawerOpen]: isEditing,
-					[classes.drawerClose]: !isEditing,
-				})}
-				anchor="right"
-				classes={{
-					paper: clsx({
-						[classes.drawerOpen]: isEditing,
-						[classes.drawerClose]: !isEditing,
-					}),
-				}}
-				open={isEditing}
-			>
-				<div className={classes.toolbar}>
-					Edit
-					<IconButton className={classes.chevronEdit} onClick={() => onChangeVisibilityEditPanel(false)}>
-						{theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-					</IconButton>
-				</div>
-				<Divider />
-				<EditPanelContainer/>
-			</Drawer>
+
 		</div>
 	);
 }
