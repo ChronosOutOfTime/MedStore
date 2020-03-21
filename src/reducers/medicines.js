@@ -29,7 +29,7 @@ const medicines = (state = initialState, action) => {
 	}
 	case ADD_MEDICINE:
 	default:
-		return state
+		return state;
 	}
-}
+};
 export default medicines;

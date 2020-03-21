@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
-import { createSelector } from 'reselect'
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import {
 	updateEditing,
