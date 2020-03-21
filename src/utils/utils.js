@@ -8,4 +8,4 @@ export const calculateExpiration = ({
 	const expiration = moment(expiresIn, "YYYY-MM");
 	const difference = expiration.diff(today, expirationType);
 	return difference ; // TODO: manage expired medicines, maybe with an icon
-}
+};

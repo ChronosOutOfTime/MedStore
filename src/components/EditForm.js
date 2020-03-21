@@ -1,7 +1,7 @@
 // import MuiDownshift from 'mui-downshift';
 
-import {DropzoneArea} from 'material-ui-dropzone'
-import React, { useState } from 'react'
+import {DropzoneArea} from 'material-ui-dropzone';
+import React, { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -50,6 +50,6 @@ const EditForm = ({
 		<DropzoneArea
 		/>
 	</Grid>;
-}
+};
 
 export default EditForm;

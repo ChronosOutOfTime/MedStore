@@ -1,7 +1,7 @@
 import './App.css';
 
 import React from 'react';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import Container from '@material-ui/core/Container';
 
 import MomentUtils from '@date-io/moment';
