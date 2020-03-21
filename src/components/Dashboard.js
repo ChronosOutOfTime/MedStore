@@ -18,6 +18,6 @@ const DashBoard = ({medicines, expirationType, onChangeExpirationType, onChangeV
 	return (<Grid container spacing={2}>
 		<Table/>
 	</Grid>);
-}
+};
 
 export default DashBoard;

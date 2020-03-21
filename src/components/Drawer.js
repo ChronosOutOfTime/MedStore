@@ -1,7 +1,6 @@
-import clsx from 'clsx';
 import React, { useState }  from 'react';
-import { connect } from 'react-redux'
-import { createSelector } from 'reselect'
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,18 +12,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import {
 	onChangeExpirationType,
 	onChangeVisibilityEditPanel,
 } from '../actions/medicines';
 import DashboardContainer from '../containers/DashboardContainer';
-import EditPanelContainer from '../containers/EditPanelContainer';
 import { editPanelVisibilitySelector, editingSelector, expirationTypeSelector } from '../selectors/medicines';
 
 const drawerWidth = 240;
@@ -171,7 +166,7 @@ const MiniDrawer = ({
 
 		</div>
 	);
-}
+};
 
 export const medicinesSelectors = createSelector(
 	[expirationTypeSelector, editingSelector, editPanelVisibilitySelector],
