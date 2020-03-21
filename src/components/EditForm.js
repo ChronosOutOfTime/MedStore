@@ -1,5 +1,6 @@
 // import MuiDownshift from 'mui-downshift';
 
+import {DropzoneArea} from 'material-ui-dropzone'
 import React, { useState } from 'react'
 
 import Grid from '@material-ui/core/Grid';
@@ -22,7 +23,8 @@ const EditForm = ({
 	name = "name",
 }) => {
 	const classes = useStyles();
-	const [selectedDate, handleDateChange] = useState(new Date());
+	const [selectedDate, handleDateChange] = useState();
+	// const [files, handleDropFiles] = useState();
 
 	return <Grid className={classes.root}>
 		<TextField
@@ -36,14 +38,16 @@ const EditForm = ({
 			variant="inline"
 			format="MM/YYYY"
 			margin="normal"
-			id="date-picker-inline"
-			label="Date picker inline"
+			id="date-picker-inline-expires"
+			label="Expires in"
 			value={selectedDate}
 			onChange={handleDateChange}
 			views={["year", "month"]}
-			keyboardbuttonprops={{
+			KeyboardButtonProps={{
 				'aria-label': 'change date',
 			}}
+		/>
+		<DropzoneArea
 		/>
 	</Grid>;
 }

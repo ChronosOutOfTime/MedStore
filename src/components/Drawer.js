@@ -1,7 +1,6 @@
-import clsx from 'clsx';
-import React from 'react';
-import { connect } from 'react-redux'
-import { createSelector } from 'reselect'
+import React, { useState }  from 'react';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,21 +12,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import {
 	onChangeExpirationType,
 	onChangeVisibilityEditPanel,
 } from '../actions/medicines';
 import DashboardContainer from '../containers/DashboardContainer';
-import EditPanelContainer from '../containers/EditPanelContainer';
 import { editPanelVisibilitySelector, editingSelector, expirationTypeSelector } from '../selectors/medicines';
 
-const drawerWidth = 290;
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
 	grow: {
@@ -37,11 +32,8 @@ const useStyles = makeStyles(theme => ({
 		display: 'flex',
 	},
 	appBar: {
-		zIndex: theme.zIndex.drawer + 1,
-		transition: theme.transitions.create(['width', 'margin'], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: drawerWidth,
 	},
 	appBarShift: { 
 		marginLeft: drawerWidth,
@@ -60,7 +52,6 @@ const useStyles = makeStyles(theme => ({
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
-		whiteSpace: 'nowrap',
 	},
 	drawerOpen: {
 		width: drawerWidth,
@@ -80,10 +71,14 @@ const useStyles = makeStyles(theme => ({
 			width: theme.spacing(9) + 20,
 		},
 	},
+	chevronEdit: {
+		right: 0,
+		position: "absolute",
+	},
 	toolbar: {
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'flex-end',
+		justifyContent: 'center',
 		padding: theme.spacing(0, 1),
 		...theme.mixins.toolbar,
 	},
@@ -101,22 +96,12 @@ const useStyles = makeStyles(theme => ({
 
 const MiniDrawer = ({
 	expirationType,
-	editing = null,
-	isEditing,
-		
+	onChangeExpirationType,
+	onChangeVisibilityEditPanel,
 }) => {
 	const classes = useStyles();
-	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
-	const [setAnchorEl] = React.useState(null);
+	const [setAnchorEl] = useState(null);
 	const menuId = 'primary-search-account-menu';
-	function handleDrawerOpen() {
-		setOpen(true);
-	}
-
-	function handleDrawerClose() {
-		setOpen(false);
-	}
 
 	function handleProfileMenuOpen(event) {
 		setAnchorEl(event.currentTarget);
@@ -126,22 +111,10 @@ const MiniDrawer = ({
 			<CssBaseline />
 			<AppBar
 				position="fixed"
-				className={clsx(classes.appBar, {
-					[classes.appBarShift]: open,
-				})}
+				className={classes.appBar}
 			>
 				<Toolbar>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						onClick={handleDrawerOpen}
-						edge="start"
-						className={clsx(classes.menuButton, {
-							[classes.hide]: open,
-						})}
-					>
-						<MenuIcon />
-					</IconButton>
+					
 					<Typography variant="h6" noWrap>
 						Dashboard
 					</Typography>
@@ -161,24 +134,14 @@ const MiniDrawer = ({
 				</Toolbar>
 			</AppBar>
 			<Drawer
+				className={classes.drawer}
 				variant="permanent"
-				className={clsx(classes.drawer, {
-					[classes.drawerOpen]: open,
-					[classes.drawerClose]: !open,
-				})}
 				classes={{
-					paper: clsx({
-						[classes.drawerOpen]: open,
-						[classes.drawerClose]: !open,
-					}),
+					paper: classes.drawerPaper,
 				}}
-				open={open}
+				anchor="left"
 			>
-				<div className={classes.toolbar}>
-					<IconButton onClick={handleDrawerClose}>
-						{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-					</IconButton>
-				</div>
+				
 				<Divider />
 				<List>
 					{[
@@ -200,32 +163,10 @@ const MiniDrawer = ({
 				<div className={classes.toolbar} />
 				<DashboardContainer/>
 			</main>
-			<Drawer
-				variant="temporary"
-				className={clsx(classes.drawer, {
-					[classes.drawerOpen]: isEditing,
-					[classes.drawerClose]: !isEditing,
-				})}
-				anchor="right"
-				classes={{
-					paper: clsx({
-						[classes.drawerOpen]: isEditing,
-						[classes.drawerClose]: !isEditing,
-					}),
-				}}
-				open={isEditing}
-			>
-				<div className={classes.toolbar}>
-					<IconButton onClick={handleDrawerClose}>
-						{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-					</IconButton>
-				</div>
-				<Divider />
-				<EditPanelContainer/>
-			</Drawer>
+
 		</div>
 	);
-}
+};
 
 export const medicinesSelectors = createSelector(
 	[expirationTypeSelector, editingSelector, editPanelVisibilitySelector],
