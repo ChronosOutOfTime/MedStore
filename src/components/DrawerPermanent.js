@@ -1,22 +1,22 @@
 import React, { useState }  from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import AddIcon from '@material-ui/icons/Add';
 import ListItemText from '@material-ui/core/ListItemText';
-import Table from './Table';
-import IconButton from '@material-ui/core/IconButton';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import AddIcon from '@material-ui/icons/Add';
 
-const drawerWidth = 240;
+import { DRAWER_WIDTH } from '../utils/utils';
+import Table from './Table';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -29,11 +29,11 @@ const useStyles = makeStyles(theme => ({
 		zIndex: theme.zIndex.drawer + 1,
 	},
 	drawer: {
-		width: drawerWidth,
+		width: DRAWER_WIDTH,
 		flexShrink: 0,
 	},
 	drawerPaper: {
-		width: drawerWidth,
+		width: DRAWER_WIDTH,
 	},
 	toolbar: theme.mixins.toolbar,
 	content: {

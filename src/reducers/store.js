@@ -1,9 +1,11 @@
 import { combineReducers, createStore } from 'redux';
 
 import medicines from './medicines';
+import user from './user';
 
 const appReducers = combineReducers({
 	medicines,
+	user,
 });
 const store = createStore(
 	appReducers,
