@@ -10,24 +10,9 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 import Header from './components/Header';
-import Login from './components/login/Login';
-import SignUp from './components/login/Signup';
+import Modals from './components/Modals';
+import Home from './components/landingPage/Home';
 import store from './reducers/store';
-
-// import Main from './components/landingPage/Home';
-
-
-
-
-// import CssBaseline from '@material-ui/core/CssBaseline';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Main from './components/DrawerPermanent';
-
-// const useStyles = makeStyles(theme => ({
-// 	root: {
-// 		display: 'flex',
-// 	},
-// }));
 
 const theme = createMuiTheme({
 	palette: {
@@ -36,7 +21,6 @@ const theme = createMuiTheme({
 });
 
 function App() {
-	// const classes = useStyles();
 
 	return (
 		<Provider store={store}>
@@ -46,9 +30,11 @@ function App() {
 						<Grid item >
 							<Header/>
 						</Grid>
-						<Grid item container>
-							<Login/>
-							<SignUp/>
+						<Grid item style={{width: "100%", textAlign: "center"}}>
+							<Home/>
+						</Grid>
+						<Grid>
+							<Modals/>
 						</Grid>
 					</Grid>
 				</MuiPickersUtilsProvider>

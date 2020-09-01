@@ -12,7 +12,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import {
 	SIGN_IN,
 	SIGN_UP,
-	onToggleLoginModals,
+	onToggleLoginPart,
+	onToggleModals,
 } from '../actions/user';
 import { DRAWER_WIDTH } from '../utils/utils';
 
@@ -44,6 +45,7 @@ const useStyles = makeStyles(theme => ({
 
 function Header({
 	onToggle = () => {},
+	onToggleModals = () => {},
 }) {
 	const classes = useStyles();
 	const menuId = 'primary-search-account-menu';
@@ -59,10 +61,16 @@ function Header({
 			</Typography>
 			<div className={classes.grow} />
 			<Typography variant="h6" noWrap>
-				<Button onClick={() => onToggle(SIGN_IN)}>{SIGN_IN}</Button>
+				<Button onClick={() => {
+					onToggle(SIGN_IN);
+					onToggleModals();
+				}}>{SIGN_IN}</Button>
 			</Typography>
 			<Typography variant="h6" noWrap>
-				<Button onClick={() => onToggle(SIGN_UP)}>{SIGN_UP}</Button>
+				<Button onClick={() => {
+					onToggle(SIGN_UP);
+					onToggleModals();
+				}}>{SIGN_UP}</Button>
 			</Typography>
 			<div className={classes.sectionDesktop}>
 				<IconButton
@@ -80,14 +88,12 @@ function Header({
 	</AppBar>;
 }
 
-
-// selectors
-
-const mapStateToProps = () => {};
+const mapStateToProps = () => ({});
 
   
 const mapDispatchToProps = {
-	onToggle: onToggleLoginModals,
+	onToggle: onToggleLoginPart,
+	onToggleModals,
 };
 
 

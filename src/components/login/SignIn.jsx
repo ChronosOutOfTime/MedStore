@@ -16,7 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { onToggleBothLoginModals } from '../../actions/user';
-import { showSignUpDialogSelector } from '../../selectors/user';
+import { showSignInDialogSelector } from '../../selectors/user';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -31,20 +31,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 	form: {
 		width: '100%', // Fix IE 11 issue.
-		marginTop: theme.spacing(3),
+		marginTop: theme.spacing(1),
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
 }));
 
-export function SignUp({
-	showSignUpDialog = false,
+export function Login({
+	showSignInDialog = false,
 	onToggleBothLoginModals = () => {},
 }) {
 	const classes = useStyles();
-
-	return showSignUpDialog ? (
+	return showSignInDialog ? (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />
 			<div className={classes.paper}>
@@ -52,62 +51,34 @@ export function SignUp({
 					<LockOutlinedIcon />
 				</Avatar>
 				<Typography component="h1" variant="h5">
-					Sign up
+					Sign in
 				</Typography>
 				<form className={classes.form} noValidate>
-					<Grid container spacing={2}>
-						<Grid item xs={12} sm={6}>
-							<TextField
-								autoComplete="fname"
-								name="firstName"
-								variant="outlined"
-								required
-								fullWidth
-								id="firstName"
-								label="First Name"
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="lastName"
-								label="Last Name"
-								name="lastName"
-								autoComplete="lname"
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="email"
-								label="Email Address"
-								name="email"
-								autoComplete="email"
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								name="password"
-								label="Password"
-								type="password"
-								id="password"
-								autoComplete="current-password"
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<FormControlLabel
-								control={<Checkbox value="allowExtraEmails" color="primary" />}
-								label="I want to receive inspiration, marketing promotions and updates via email."
-							/>
-						</Grid>
-					</Grid>
+					<TextField
+						variant="outlined"
+						margin="normal"
+						required
+						fullWidth
+						id="email"
+						label="Email Address"
+						name="email"
+						autoComplete="email"
+					/>
+					<TextField
+						variant="outlined"
+						margin="normal"
+						required
+						fullWidth
+						name="password"
+						label="Password"
+						type="password"
+						id="password"
+						autoComplete="current-password"
+					/>
+					<FormControlLabel
+						control={<Checkbox value="remember" color="primary" />}
+						label="Remember me"
+					/>
 					<Button
 						type="submit"
 						fullWidth
@@ -115,14 +86,19 @@ export function SignUp({
 						color="primary"
 						className={classes.submit}
 					>
-			Sign Up
+						Sign In
 					</Button>
-					<Grid container justify="flex-end">
+					<Grid container>
+						<Grid item xs>
+							<Link href="#" variant="body2">
+								Forgot password?
+							</Link>
+						</Grid>
 						<Grid item>
 							<Link href="#" variant="body2" onClick={() => {
 								onToggleBothLoginModals();
 							}}>
-								Already have an account? Sign in
+								{"Don't have an account? Sign Up"}
 							</Link>
 						</Grid>
 					</Grid>
@@ -132,18 +108,20 @@ export function SignUp({
 	) : null;
 }
 
-const signUpSelectors = createStructuredSelector({
-	showSignUpDialog: showSignUpDialogSelector,
+
+const loginSelectors = createStructuredSelector({
+	showSignInDialog: showSignInDialogSelector,
+	onToggleBothLoginModals,
 });
 
-const mapStateToProps = (state) => signUpSelectors(state);
+const mapStateToProps = (state) => loginSelectors(state);
 const mapDispatchToProps = {
 	onToggleBothLoginModals,
 };
 
-const SignUpConnected = connect(
+const LoginConnected = connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(SignUp);
+)(Login);
   
-export default SignUpConnected;
+export default LoginConnected;
