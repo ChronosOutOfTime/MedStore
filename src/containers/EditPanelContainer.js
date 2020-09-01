@@ -15,7 +15,7 @@ export const medicinesSelectors = createSelector(
 		editing,
 	) => ({
 		editing,
-	})
+	}),
 );
 
 const mapStateToProps = (state) => (medicinesSelectors(state));
@@ -28,7 +28,7 @@ const mapDispatchToProps = {
 
 const EditPanelContainer = connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
 )(EditForm);
   
 export default EditPanelContainer;

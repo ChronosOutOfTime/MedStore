@@ -173,12 +173,12 @@ export const medicinesSelectors = createSelector(
 	(
 		expirationType,
 		editing,
-		isEditing
+		isEditing,
 	) => ({
 		expirationType,
 		editing,
 		isEditing,
-	})
+	}),
 );
 
 const mapStateToProps = (state) => medicinesSelectors(state);
@@ -190,5 +190,5 @@ const mapDispatchToProps = {
 
 export default connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
 )(MiniDrawer);

@@ -1,9 +1,11 @@
-import React from "react";
 import MaterialTable from "material-table";
-import { resources } from '../assets/resources';
+import React from "react";
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+
+import { resources } from '../assets/demo';
+
 const imgStyle = {width: 40, height: 40, borderRadius: '0%'};
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -39,7 +41,7 @@ const Table = () => {
 					},
 				]}
 				columns={[
-					{ title: "Thumbnail", field: 'imageUrl', sorting: false, render: rowData => rowData.imageUrl && <img src={rowData.imageUrl} alt="N.A." style={imgStyle}/> },
+					{ title: "Picture", field: 'imageUrl', sorting: false, render: rowData => rowData.imageUrl && <img src={rowData.imageUrl} alt="N.A." style={imgStyle}/> },
 					{ title: "Name", field: "name" },
 					{ title: "Expiration Date", field: "expDate", type: "date" },
 				]}

@@ -9,3 +9,9 @@ export const calculateExpiration = ({
 	const difference = expiration.diff(today, expirationType);
 	return difference ; // TODO: manage expired medicines, maybe with an icon
 };
+
+export const DRAWER_WIDTH = 240;
+
+export const constants = {
+	DRAWER_WIDTH,
+};

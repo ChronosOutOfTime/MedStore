@@ -8,7 +8,7 @@ TODO
 Features
 
 - Create a store of your meds (with expiration date)
-- Login to see dashboard
+- SignIn to see dashboard
 - Once a med is reaching expiration date send an email
 
 
