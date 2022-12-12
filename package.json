@@ -30,7 +30,7 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "1.x",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "express-handlebars": "3.1.0",
     "file-loader": "3.0.1",
     "fs-extra": "7.0.1",
